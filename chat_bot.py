@@ -35,11 +35,10 @@ class ChatBot:
 
     #load sql file
     def load_sql_file(self, sql_file):
-        try:
-            df = pd.read_sql(sql_file, con=self.db.engine)
-            db = SQLDatabase(data=df)
-            return db
-            
+        df = pd.read_sql(sql_file, con=self.db.engine)
+        db = SQLDatabase(data=df)
+        return db
+    
     def retrieve_context(self, query):
         db_context = self.db_chain(query)
         return db_context['result'].strip()
@@ -53,4 +52,3 @@ class ChatBot:
             temperature=0
         )
         return response.choices[0].message.content
-
