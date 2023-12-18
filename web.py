@@ -18,6 +18,8 @@ from openai import OpenAI
 import streamlit as st
 import pandas as pd
 
+api_key = st.secrets["OPENAI_API_KEY"]
+
 class ChatBot:
     def __init__(self, api_key, use_database=False, db_uri=None, sql_file=None):
         self.client = OpenAI(api_key=api_key)
@@ -66,14 +68,14 @@ def main():
         st.button("Process")
 
     # Inicia el chat bot
-    api_key = st.secrets["OPENAI_API_KEY"]
+    chat_bot = ChatBot()
 
     # Lógica de interacción con el bot
     if user_input:
         st.write("Bot: Welcome, ask questions right away! Type 'exit' to end the chat.")
         convo = []
         
-        context_m = ChatBot.retrieve_context(user_input)
+        context_m = chat_bot.retrieve_context(user_input)
 
         # Prompt and user message 
         prompt = f"""You are a data analysis specialist checking a SQL file.
