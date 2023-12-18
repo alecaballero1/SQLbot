@@ -13,7 +13,7 @@ from langchain.memory import ConversationBufferMemory
 from langchain.agents.agent_types import AgentType
 from langchain.agents import create_sql_agent
 from openai import OpenAI
-import test as sqler
+import test as sql_file
 import streamlit as st
 import pandas as pd
 
@@ -29,11 +29,16 @@ class ChatBot:
             self.db = SQLDatabase.from_uri(db_uri)
             self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
         elif sql_file:
-            self.db = (sql_file)
+            self.db = self.execute_sql_script(sql_file)
             self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
         else:
             self.db = None
             self.db_chain = None
+
+    def execute_sql_script(self, sql_script):
+        temp_db = SQLDatabase.from_uri('sqlite:///:memory:')
+        temp_db.execute(sql_script)
+        return temp_db
 
     def retrieve_context(self, query):
         db_context = self.db_chain(query)
