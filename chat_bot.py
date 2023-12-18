@@ -25,8 +25,8 @@ class ChatBot:
         llm_name = "gpt-3.5-turbo"
         self.llm = ChatOpenAI(api_key=api_key, model_name=llm_name, temperature=0)
 
-        conn = st.connection('mysql', type='sql')
-        conn_uri = conn.get_connection_uri()
+        conn = st.sql('connections.mysql', type='sql')
+        conn_uri = create_engine(conn).url.__to_string__()
         self.db = SQLDatabase.from_uri(conn_uri)
         self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
 
