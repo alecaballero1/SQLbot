@@ -3,7 +3,6 @@ langchain-experimental
 streamlit
 openai
 pymysql
-export MYSQLCLIENT_CFLAGS=$(mysql_config --cflags)
-export MYSQLCLIENT_LDFLAGS=$(mysql_config --libs)
-mysqlclient=2.2.1
+pykg-config
 SQLAlchemy
+mysqlclient
