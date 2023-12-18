@@ -26,14 +26,14 @@ class ChatBot:
         self.llm = ChatOpenAI(api_key=api_key, model_name=llm_name, temperature=0)
         
         if use_database and db_uri:
-        self.db = SQLDatabase.from_uri(db_uri)
-        self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
-    elif sql_file:
-        self.db = (sql_file)
-        self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
-    else:
-        self.db = None
-        self.db_chain = None
+            self.db = SQLDatabase.from_uri(db_uri)
+            self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
+        elif sql_file:
+            self.db = (sql_file)
+            self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
+        else:
+            self.db = None
+            self.db_chain = None
 
     def retrieve_context(self, query):
         db_context = self.db_chain(query)
