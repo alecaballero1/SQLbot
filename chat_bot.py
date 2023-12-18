@@ -16,9 +16,9 @@ from openai import OpenAI
 
 class ChatBot:
     def __init__(self, api_key, use_database=False, db_uri=None):
-        self.client = OpenAI(st.secrets["OPENAI_API_KEY"])
+        self.client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
         llm_name = "gpt-3.5-turbo"
-        self.llm = ChatOpenAI(st.secrets["OPENAI_API_KEY"], model_name=llm_name, temperature=0)
+        self.llm = ChatOpenAI(api_key=st.secrets["OPENAI_API_KEY"], model_name=llm_name, temperature=0)
         
         if use_database and db_uri:
             self.db = SQLDatabase.from_uri(db_uri)
