@@ -17,28 +17,21 @@ import streamlit as st
 import pandas as pd
 
 api_key = st.secrets["OPENAI_API_KEY"]
+api_key = st.secrets["OPENAI_API_KEY"]
 class ChatBot:
-    def __init__(self, api_key, use_database=False, db_uri=None, sql_file=None):
+    def __init__(self):
         self.client = OpenAI(api_key=api_key)
         llm_name = "gpt-3.5-turbo"
         self.llm = ChatOpenAI(api_key=api_key, model_name=llm_name, temperature=0)
-        
-        if use_database and db_uri:
-            self.db = SQLDatabase.from_uri(db_uri)
-            self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
-        elif sql_file:
-            self.db = self.load_sql_file(sql_file)
-            self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
-        else:
-            self.db = None
-            self.db_chain = None
+        host = 'localhost'
+        port = '3306'
+        username = "root"
+        password = 'test123test'
+        database_schema = 'neez'
+        mysql_uri = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database_schema}"
+        self.db = SQLDatabase.from_uri(mysql_uri)
+        self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
 
-    #load sql file
-    def load_sql_file(self, sql_file):
-        df = pd.read_sql(sql_file, con=self.db.engine)
-        db = SQLDatabase(data=df)
-        return db
-    
     def retrieve_context(self, query):
         db_context = self.db_chain(query)
         return db_context['result'].strip()
