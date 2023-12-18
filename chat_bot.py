@@ -14,6 +14,7 @@ from langchain.agents.agent_types import AgentType
 from langchain.agents import create_sql_agent
 from openai import OpenAI
 import streamlit as st
+import pandas as pd
 
 api_key = st.secrets["OPENAI_API_KEY"]
 class ChatBot:
@@ -21,9 +22,8 @@ class ChatBot:
         self.client = OpenAI(api_key=api_key)
         llm_name = "gpt-3.5-turbo"
         self.llm = ChatOpenAI(api_key=api_key, model_name=llm_name, temperature=0)
-
-    #database or localhost
-    if use_database and db_uri:
+        
+        if use_database and db_uri:
             self.db = SQLDatabase.from_uri(db_uri)
             self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
         elif sql_file:
