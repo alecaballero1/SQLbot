@@ -16,7 +16,7 @@ def main():
 
     # Inicia el chat bot
     api_key = st.secrets["OPENAI_API_KEY"]
-    chat_bot = ChatBot(api_key=api_key)
+    chat_bot = ChatBot(api_key=api_key, sql_file=uploaded_file)
 
     # Lógica de interacción con el bot
     if user_input:
