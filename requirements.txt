@@ -3,6 +3,5 @@ langchain-experimental
 streamlit
 openai
 pymysql
-pykg-config
 SQLAlchemy
-mysqlclient
+pymysql
