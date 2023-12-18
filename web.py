@@ -15,7 +15,8 @@ def main():
         st.button("Process")
 
     # Inicia el chat bot
-    chat_bot = ChatBot()
+    api_key = st.secrets["OPENAI_API_KEY"]
+    chat_bot = ChatBot(api_key=api_key)
 
     # Lógica de interacción con el bot
     if user_input:
