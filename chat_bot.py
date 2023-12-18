@@ -13,12 +13,12 @@ from langchain.memory import ConversationBufferMemory
 from langchain.agents.agent_types import AgentType
 from langchain.agents import create_sql_agent
 from openai import OpenAI
-import test as sql_file
 import streamlit as st
 import pandas as pd
 
-sqler = sql_file
+test.sql = "test_sql"
 api_key = st.secrets["OPENAI_API_KEY"]
+
 class ChatBot:
     def __init__(self):
         self.client = OpenAI(api_key=api_key)
