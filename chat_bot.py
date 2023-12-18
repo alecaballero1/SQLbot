@@ -13,6 +13,7 @@ from langchain.memory import ConversationBufferMemory
 from langchain.agents.agent_types import AgentType
 from langchain.agents import create_sql_agent
 from openai import OpenAI
+import streamlit as st
 
 class ChatBot:
     def __init__(self, api_key, use_database=False, db_uri=None):
