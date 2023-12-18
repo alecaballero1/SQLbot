@@ -16,18 +16,17 @@ from openai import OpenAI
 from config import OPENAI_API_KEY  # Ajusta según tu estructura de archivos
 
 class ChatBot:
-    def __init__(self):
+    def __init__(self, api_key, use_database=False, db_uri=None):
         self.client = OpenAI(api_key=OPENAI_API_KEY)
         llm_name = "gpt-3.5-turbo"
-        self.llm = ChatOpenAI(api_key=OPENAI_API_KEY, model_name=llm_name, temperature=0)
-        host = 'localhost'
-        port = '3306'
-        username = "root"
-        password = 'test123test'
-        database_schema = 'neez'
-        mysql_uri = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database_schema}"
-        self.db = SQLDatabase.from_uri(mysql_uri)
-        self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
+        self.llm = ChatOpenAI(api_key=api_key, model_name=llm_name, temperature=0)
+        
+        if use_database and db_uri:
+            self.db = SQLDatabase.from_uri(db_uri)
+            self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
+        else:
+            self.db = None
+            self.db_chain = None
 
     def retrieve_context(self, query):
         db_context = self.db_chain(query)
