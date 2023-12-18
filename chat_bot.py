@@ -16,7 +16,6 @@ from openai import OpenAI
 import streamlit as st
 import pandas as pd
 
-test.sql = "test_sql"
 api_key = st.secrets["OPENAI_API_KEY"]
 
 class ChatBot:
@@ -24,21 +23,14 @@ class ChatBot:
         self.client = OpenAI(api_key=api_key)
         llm_name = "gpt-3.5-turbo"
         self.llm = ChatOpenAI(api_key=api_key, model_name=llm_name, temperature=0)
-        
-        if use_database and db_uri:
-            self.db = SQLDatabase.from_uri(db_uri)
-            self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
-        elif sql_file:
-            self.db = self.execute_sql_script(sql_file)
-            self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
-        else:
-            self.db = None
-            self.db_chain = None
-
-    def execute_sql_script(self, sql_script):
-        temp_db = SQLDatabase.from_uri('sqlite:///:memory:')
-        temp_db.execute(sql_script)
-        return temp_db
+        host = 'localhost'
+        port = '3306'
+        username = "root"
+        password = 'test123test'
+        database_schema = 'neez'
+        mysql_uri = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database_schema}"
+        self.db = SQLDatabase.from_uri(mysql_uri)
+        self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
 
     def retrieve_context(self, query):
         db_context = self.db_chain(query)
