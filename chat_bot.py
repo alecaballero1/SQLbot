@@ -18,16 +18,20 @@ import pandas as pd
 import pymysql
 
 api_key = st.secrets["OPENAI_API_KEY"]
-
 class ChatBot:
     def __init__(self):
         self.client = OpenAI(api_key=api_key)
         llm_name = "gpt-3.5-turbo"
         self.llm = ChatOpenAI(api_key=api_key, model_name=llm_name, temperature=0)
 
-        conn = st.sql('connections.mysql', type='sql')
-        conn_uri = create_engine(conn).url.__to_string__()
-        self.db = SQLDatabase.from_uri(conn_uri)
+        host = 'localhost'
+        port = '3306'
+        username = st.secrets["username"]
+        password = st.secrets["password"]
+        database_schema = st.secrets["database"]
+        mysql_uri = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database_schema}"
+        
+        self.db = SQLDatabase.from_uri(mysql_uri)
         self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
 
     def retrieve_context(self, query):
