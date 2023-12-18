@@ -4,4 +4,5 @@ streamlit
 openai
 pymysql
 SQLAlchemy
-pymysql
+s3fs
+st-files-connection
