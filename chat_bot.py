@@ -26,10 +26,10 @@ class ChatBot:
 
         host = 'localhost'
         port = '3306'
-        dialect="pymysql"
-        username = st.secrets["username"]
-        password = st.secrets["password"]
-        database_schema = st.secrets["database"]
+        dialect = "pymysql"
+        username = "root"
+        password = "Matematicas1"
+        database_schema = "neez"
         mysql_uri = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database_schema}"
         
         self.db = SQLDatabase.from_uri(mysql_uri)
