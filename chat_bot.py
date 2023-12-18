@@ -23,13 +23,9 @@ class ChatBot:
         self.client = OpenAI(api_key=api_key)
         llm_name = "gpt-3.5-turbo"
         self.llm = ChatOpenAI(api_key=api_key, model_name=llm_name, temperature=0)
-        host = 'localhost'
-        port = '3306'
-        username = "root"
-        password = 'test123test'
-        database_schema = 'neez'
-        mysql_uri = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database_schema}"
-        self.db = SQLDatabase.from_uri(mysql_uri)
+
+        conn = st.connection('mysql', type='sql')
+        self.db = SQLDatabase.from_uri(conn)
         self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
 
     def retrieve_context(self, query):
