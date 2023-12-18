@@ -13,24 +13,27 @@ from langchain.memory import ConversationBufferMemory
 from langchain.agents.agent_types import AgentType
 from langchain.agents import create_sql_agent
 from openai import OpenAI
+import test as sqler
 import streamlit as st
 import pandas as pd
 
-api_key = st.secrets["OPENAI_API_KEY"]
+sqler = sql_file
 api_key = st.secrets["OPENAI_API_KEY"]
 class ChatBot:
     def __init__(self):
         self.client = OpenAI(api_key=api_key)
         llm_name = "gpt-3.5-turbo"
         self.llm = ChatOpenAI(api_key=api_key, model_name=llm_name, temperature=0)
-        host = 'localhost'
-        port = '3306'
-        username = "root"
-        password = 'test123test'
-        database_schema = 'neez'
-        mysql_uri = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database_schema}"
-        self.db = SQLDatabase.from_uri(mysql_uri)
+        
+        if use_database and db_uri:
+        self.db = SQLDatabase.from_uri(db_uri)
         self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
+    elif sql_file:
+        self.db = (sql_file)
+        self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
+    else:
+        self.db = None
+        self.db_chain = None
 
     def retrieve_context(self, query):
         db_context = self.db_chain(query)
