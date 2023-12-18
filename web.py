@@ -19,7 +19,6 @@ import streamlit as st
 import pandas as pd
 
 api_key = st.secrets["OPENAI_API_KEY"]
-
 class ChatBot:
     def __init__(self, api_key, use_database=False, db_uri=None, sql_file=None):
         self.client = OpenAI(api_key=api_key)
