@@ -26,7 +26,8 @@ class ChatBot:
         self.llm = ChatOpenAI(api_key=api_key, model_name=llm_name, temperature=0)
 
         conn = st.connection('mysql', type='sql')
-        self.db = SQLDatabase.from_uri(conn)
+        conn_uri = conn.get_connection_uri()
+        self.db = SQLDatabase.from_uri(conn_uri)
         self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
 
     def retrieve_context(self, query):
