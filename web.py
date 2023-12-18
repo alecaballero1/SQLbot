@@ -32,8 +32,7 @@ class ChatBot:
             self.db = self.load_sql_file(sql_file)
             self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
         else:
-            self.db = None
-            self.db_chain = None
+            self.db_chain = SQLDatabaseChain(llm=self.llm, database=None, verbose=True)
 
     #load sql file
     def load_sql_file(self, sql_file):
