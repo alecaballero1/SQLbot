@@ -25,6 +25,9 @@ class ChatBot:
         if use_database and db_uri:
             self.db = SQLDatabase.from_uri(db_uri)
             self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
+        elif sql_file:
+            self.db = self.load_sql_file(sql_file)
+            self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
         else:
             self.db = None
             self.db_chain = None
