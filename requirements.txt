@@ -3,3 +3,5 @@ langchain-experimental
 streamlit
 openai
 pymysql
+mysqlclient
+SQLAlchemy
