@@ -5,5 +5,5 @@ openai
 pymysql
 export MYSQLCLIENT_CFLAGS=$(mysql_config --cflags)
 export MYSQLCLIENT_LDFLAGS=$(mysql_config --libs)
-mysqlclient
+mysqlclient=2.2.1
 SQLAlchemy
