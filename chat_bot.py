@@ -15,7 +15,7 @@ from langchain.agents import create_sql_agent
 from openai import OpenAI
 import streamlit as st
 import pandas as pd
-import MySQLdb
+import pymysql
 
 api_key = st.secrets["OPENAI_API_KEY"]
 
