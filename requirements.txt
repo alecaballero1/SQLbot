@@ -1,13 +1,4 @@
 langchain
 langchain-experimental
-langchain.sql_database
-langchain.llms
-langchain.prompts
-langchain.chat_models
-langchain.prompts
-langchain.agents.agent_toolkits
-langchain.memory
-langchain.agents.agent_types
-langchain.agents
 streamlit
 openai
