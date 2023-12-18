@@ -2,3 +2,4 @@ langchain
 langchain-experimental
 streamlit
 openai
+pymysql
