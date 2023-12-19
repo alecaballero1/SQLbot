@@ -36,7 +36,6 @@ class ChatBot:
         # port = db_port
         mysql_uri = "mysql+pymysql://Neez_considerso:{password}@4ct.h.filess.io:3307/Neez_considerso"
         # mysql_uri = "mysql+pymysql://{username}:{password}@{host}:{port}/{db}"
-        print(mysql_uri)
 
         self.db = SQLDatabase.from_uri(mysql_uri)
         self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
