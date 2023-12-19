@@ -1,5 +1,6 @@
 # chat_bot.py
-
+import os
+from dotenv import load_dotenv
 from langchain.sql_database import SQLDatabase
 from langchain.llms import OpenAI
 from langchain_experimental.sql import SQLDatabaseChain
@@ -12,9 +13,7 @@ from langchain.agents import create_sql_agent
 from openai import OpenAI
 import streamlit as st
 import pandas as pd
-import os
 import pymysql
-import dotenv 
 load_dotenv()
 
 #variables
