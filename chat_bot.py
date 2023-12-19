@@ -32,7 +32,7 @@ class ChatBot:
         username = db_username
         password = db_password
         db = db_name
-        mysql_uri = "mysql+pymysql://{username}:{password}@{host}/{db}?sslaccept=strict"
+        mysql_uri = "mysql+pymysql://{username}:{password}@{host}/{db}"
         print(mysql_uri)
 
         self.db = SQLDatabase.from_uri(mysql_uri)
