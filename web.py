@@ -11,11 +11,10 @@ def main():
     uploaded_file = st.file_uploader("Upload your SQL file", type=["sql"])
 
     if uploaded_file is not None:
-        sql_content = uploaded_file.read().decode("utf-8")
         st.button("Process")
 
     # Inicia el chat bot
-    chat_bot = ChatBot(sql_content)
+    chat_bot = ChatBot()
 
     # Lógica de interacción con el bot
     if user_input:
