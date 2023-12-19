@@ -19,7 +19,7 @@ import pymysql
 
 api_key = st.secrets["OPENAI_API_KEY"]
 class ChatBot:
-    def __init__(self):
+    def __init__(self, sql_content):
         self.client = OpenAI(api_key=api_key)
         llm_name = "gpt-3.5-turbo"
         self.llm = ChatOpenAI(api_key=api_key, model_name=llm_name, temperature=0)
@@ -31,6 +31,7 @@ class ChatBot:
         password = "Matematicas1"
         database_schema = "neez"
         mysql_uri = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database_schema}"
+        self.sql_content = sql_content
         
         self.db = SQLDatabase.from_uri(mysql_uri)
         self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
