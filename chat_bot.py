@@ -28,30 +28,16 @@ class ChatBot:
         llm_name = "gpt-3.5-turbo"
         self.llm = ChatOpenAI(api_key=api_key, model_name=llm_name, temperature=0)
 
-        # host = db_host
-        # dialect = "pymysql"
-        # username = db_username
-        # password = db_password
-        # db = db_name
-        # Old solution
-        # mysql_uri = "mysql+pymysql://{username}:{password}@{host}/{db}"
+        host = db_host
+        dialect = "pymysql"
+        username = db_username
+        password = db_password
+        db = db_name
+        Old solution
+        mysql_uri = "mysql+pymysql://{username}:{password}@{host}/{db}?sslaccept=strict"
+        print mysql_uri
 
-        # self.db = SQLDatabase.from_uri(mysql_uri)
-        # self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
-        
-        connection = MySQLdb.connect(
-          host= os.getenv("DB_HOST"),
-          user=os.getenv("DB_USERNAME"),
-          passwd= os.getenv("DB_PASSWORD"),
-          db= os.getenv("DB_NAME"),
-          autocommit = True,
-          ssl_mode = "VERIFY_IDENTITY",
-          ssl      = {
-            "ca": "/etc/ssl/cert.pem"
-          }
-         )
-        
-        self.db = SQLDatabase.from_uri(MySQLdb.connect)
+        self.db = SQLDatabase.from_uri(mysql_uri)
         self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
 
     def retrieve_context(self, query):
