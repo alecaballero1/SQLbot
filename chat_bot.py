@@ -19,7 +19,7 @@ import pymysql
 
 api_key = st.secrets["OPENAI_API_KEY"]
 class ChatBot:
-    def __init__(self, sql_content):
+    def __init__(self):
         self.client = OpenAI(api_key=api_key)
         llm_name = "gpt-3.5-turbo"
         self.llm = ChatOpenAI(api_key=api_key, model_name=llm_name, temperature=0)
