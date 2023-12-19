@@ -1,8 +1,4 @@
 # main_streamlit_script.py
-
-import streamlit as st
-from chat_bot import ChatBot
-
 import streamlit as st
 from chat_bot import ChatBot
 
