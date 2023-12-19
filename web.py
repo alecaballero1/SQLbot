@@ -15,17 +15,33 @@ def main():
     uploaded_file = st.file_uploader("Upload your SQL file", type=["sql"])
 
     if uploaded_file is not None:
-        # Procesar el archivo SQL y utilizarlo como base de datos
         sql_content = uploaded_file.read().decode("utf-8")
-
-        # Inicia el chat bot con el contenido del archivo SQL
-        chat_bot = ChatBot(sql_content)
-
         st.button("Process")
 
-        # Resto de la lógica de interacción con el bot...
-    else:
-        st.warning("Please upload an SQL file.")
+    # Inicia el chat bot
+    chat_bot = ChatBot(sql_content)
+
+    # Lógica de interacción con el bot
+    if user_input:
+        st.write("Bot: Welcome, ask questions right away! Type 'exit' to end the chat.")
+        convo = []
+        
+        context_m = chat_bot.retrieve_context(user_input)
+
+        # Prompt and user message 
+        prompt = f"""You are a data analysis specialist checking a SQL file.
+        You have to answer user's doubts and questions, as well as providing relevant information.
+        If you dont know, just say you dont know. Be precise!
+        {context_m}
+        Question: {user_input}
+        Answer:"""
+
+        convo.append({'role': 'system', 'content': prompt})
+        convo.append({'role': 'user', 'content': user_input})
+
+        # Conversation with the model
+        answer = chat_bot.get_completion(prompt)
+        st.write(f"Bot: {answer}")
 
 if __name__ == "__main__":
     main()
