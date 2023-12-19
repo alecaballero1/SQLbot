@@ -14,7 +14,8 @@ def main():
         st.button("Process")
 
     # Inicia el chat bot
-    chat_bot = ChatBot()
+    #chat_bot = ChatBot()
+    chatBot()
 
     # Lógica de interacción con el bot
     if user_input:
