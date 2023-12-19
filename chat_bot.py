@@ -14,8 +14,7 @@ import streamlit as st
 import pandas as pd
 import os
 import pymysql
-
-from dotenv import load_dotenv
+import dotenv 
 load_dotenv()
 
 #variables
