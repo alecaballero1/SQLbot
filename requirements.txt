@@ -6,5 +6,5 @@ pymysql
 SQLAlchemy
 s3fs
 st-files-connection
-python-dotenv
+dotenv
 mysqlclient
