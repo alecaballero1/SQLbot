@@ -14,42 +14,30 @@ import streamlit as st
 import pandas as pd
 import pymysql
 
-#variables
-db_host = st.secrets["DB_HOST"]
-db_username = st.secrets["DB_USERNAME"]
-db_password = st.secrets["DB_PASSWORD"]
-db_name = st.secrets["DB_NAME"]
-db_port = st.secrets["DB_PORT"]
+# variables
+host = st.secrets["DB_HOST"]
+username = st.secrets["DB_USERNAME"]
+password = st.secrets["DB_PASSWORD"]
+name = st.secrets["DB_NAME"]
+port = st.secrets["DB_PORT"]
 api_key = st.secrets["OPENAI_API_KEY"]
+mysql_uri = f"mysql+pymysql://{username}:{password}@{host}:{port}/{db}"
 
 class ChatBot:
     def __init__(self):
         self.client = OpenAI(api_key=api_key)
         llm_name = "gpt-3.5-turbo"
         self.llm = ChatOpenAI(api_key=api_key, model_name=llm_name, temperature=0)
-
-        host = db_host
-        dialect = "pymysql"
-        username = db_username
-        password = db_password
-        db = db_name
-        port = db_port
-        mysql_uri = f"mysql+pymysql://{username}:{password}@{host}:3307/{db}"
-        # mysql_uri = "mysql+pymysql://{username}:{password}@{host}:{port}/{db}"
-
         self.db = SQLDatabase.from_uri(mysql_uri)
         self.db_chain = SQLDatabaseChain(llm=self.llm, database=self.db, verbose=True)
 
     def retrieve_context(self, query):
         db_context = self.db_chain(query)
-        return db_context['result'].strip()
+        return db_context["result"].strip()
 
     def get_completion(self, prompt, model="gpt-3.5-turbo"):
         messages = [{"role": "user", "content": prompt}]
         response = self.client.chat.completions.create(
-            model=model,
-            messages=messages,
-            max_tokens=50,
-            temperature=0
+            model=model, messages=messages, max_tokens=50, temperature=0
         )
         return response.choices[0].message.content
