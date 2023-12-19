@@ -19,7 +19,7 @@ db_host = st.secrets["DB_HOST"]
 db_username = st.secrets["DB_USERNAME"]
 db_password = st.secrets["DB_PASSWORD"]
 db_name = st.secrets["DB_NAME"]
-db_port = st.secrets["DB_PORT"]
+# db_port = st.secrets["DB_PORT"]
 api_key = st.secrets["OPENAI_API_KEY"]
 
 class ChatBot:
@@ -33,9 +33,9 @@ class ChatBot:
         username = db_username
         password = db_password
         db = db_name
-        port = db_port
-        
-        mysql_uri = "mysql+pymysql://{username}:{password}@{host}:{port}/{db}"
+        # port = db_port
+        mysql_uri = "mysql+pymysql://Neez_considerso:{password}@4ct.h.filess.io:3307/Neez_considerso"
+        # mysql_uri = "mysql+pymysql://{username}:{password}@{host}:{port}/{db}"
         print(mysql_uri)
 
         self.db = SQLDatabase.from_uri(mysql_uri)
