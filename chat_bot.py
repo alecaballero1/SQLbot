@@ -34,7 +34,7 @@ class ChatBot:
         password = db_password
         db = db_name
         # port = db_port
-        mysql_uri = "mysql+pymysql://Neez_considerso:6cc871420bbadaaea0f3f4d9ee87d7bff22dac78@4ct.h.filess.io:3307/Neez_considerso"
+        mysql_uri = "mysql+pymysql://Neez_considerso:{password}@4ct.h.filess.io:3307/Neez_considerso"
         # mysql_uri = "mysql+pymysql://{username}:{password}@{host}:{port}/{db}"
         print(mysql_uri)
 
