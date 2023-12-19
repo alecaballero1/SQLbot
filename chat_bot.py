@@ -18,7 +18,7 @@ import pymysql
 host = st.secrets["DB_HOST"]
 username = st.secrets["DB_USERNAME"]
 password = st.secrets["DB_PASSWORD"]
-name = st.secrets["DB_NAME"]
+db = st.secrets["DB_NAME"]
 port = st.secrets["DB_PORT"]
 api_key = st.secrets["OPENAI_API_KEY"]
 mysql_uri = f"mysql+pymysql://{username}:{password}@{host}:{port}/{db}"
