@@ -9,3 +9,4 @@ st-files-connection
 python-dotenv
 mysqlclient
 MySQLdb
+MySQL-python
